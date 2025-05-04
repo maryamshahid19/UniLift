@@ -3,7 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unilift/bloc/auth_bloc.dart';
 import 'package:unilift/bloc/auth_event.dart';
 import 'package:unilift/bloc/auth_state.dart';
+import 'package:unilift/mainlayout.dart';
 import 'package:unilift/repositories/auth_repository.dart';
+import 'package:unilift/screens/createCarpoolScreens/car_details_screen.dart';
+import 'package:unilift/screens/createCarpoolScreens/carpool_details_screen.dart';
 import 'package:unilift/screens/dashboard.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:unilift/screens/signup_screen.dart';
@@ -33,11 +36,14 @@ class MyApp extends StatelessWidget {
         title: 'UniLift',
         home: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
-            if (state is AuthAuthenticated) {
-              return const SignUpScreen(); // Navigate to home if authenticated
-            } else {
-              return const SignUpScreen(); // Otherwise, show login screen
-            }
+            return const MainLayout();
+            // return const CarDetailScreen();
+            //   if (state is AuthAuthenticated) {
+            //     return const SignUpScreen(); // Navigate to home if authenticated
+            //   }
+            //else {
+            //   return const SignUpScreen(); // Otherwise, show login screen
+            // }
           },
         ),
         // routes: {
