@@ -1,24 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:unilift/bloc/auth_bloc.dart';
+import 'package:unilift/bloc/auth_event.dart';
+import 'package:unilift/bloc/auth_state.dart';
+import 'package:unilift/repositories/auth_repository.dart';
 import 'package:unilift/screens/dashboard.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:unilift/screens/signup_screen.dart';
 import 'firebase_options.dart';
+import 'screens/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(MyApp(authRepository: AuthRepository()));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final AuthRepository authRepository;
+
+  const MyApp({super.key, required this.authRepository});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'UniLift',
-      home: const Dashboard(),
+    return BlocProvider(
+      create: (context) =>
+          AuthBloc(authRepository: authRepository)..add(AppStarted()),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'UniLift',
+        home: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            if (state is AuthAuthenticated) {
+              return const SignUpScreen(); // Navigate to home if authenticated
+            } else {
+              return const SignUpScreen(); // Otherwise, show login screen
+            }
+          },
+        ),
+        // routes: {
+        //   '/signup': (context) => const SignUpScreen(),
+        //   '/login': (context) => const LogInScreen(),
+        //   '/home': (context) => const Dashboard(),
+        // },
+      ),
     );
   }
 }
