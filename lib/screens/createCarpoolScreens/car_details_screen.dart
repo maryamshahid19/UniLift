@@ -4,6 +4,7 @@ import 'package:unilift/constants/color_constants.dart';
 import 'package:unilift/constants/screensize_constants.dart';
 import 'package:unilift/models/user.dart';
 import 'package:unilift/repositories/rides_repository.dart';
+import 'package:unilift/screens/createCarpoolScreens/carpool_summary_screen.dart';
 import 'package:unilift/widgets/button/customButton.dart';
 import 'package:unilift/widgets/text/customText.dart';
 
@@ -192,7 +193,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                         ),
                         const SizedBox(height: 30),
                         CustomButton(
-                          text: "Confirm",
+                          text: "Continue",
                           onPressed: () {
                             String plate = plateController.text.trim();
                             final plateRegex = RegExp(r'^[A-Za-z]{3}[0-9]{3}$');
@@ -208,16 +209,23 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               );
                               return;
                             } else {
-                              RidesRepository().createCarpool(
-                                  widget.from,
-                                  widget.to,
-                                  widget.dateTime,
-                                  widget.availableSeats,
-                                  fare,
-                                  carName!,
-                                  carColor!,
-                                  plate,
-                                  widget.user.userId);
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CarpoolSummaryScreen(
+                                    user: widget.user,
+                                    dateTime: widget.dateTime,
+                                    availableSeats: widget.availableSeats,
+                                    from: widget.from,
+                                    to: widget.to,
+                                    fare: fare,
+                                    carName: carName!,
+                                    carColor: carColor!,
+                                    plate: plate,
+                                  ),
+                                ),
+                              );
+                              
                             }
                           },
                         ),

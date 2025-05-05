@@ -142,7 +142,7 @@ class _RideDetailPopupState extends State<RideDetailPopup> {
                 text: "Confirm",
                 onPressed: () async {
                   RidesRepository().bookCarpoolRide(widget.ride.documentId,
-                      widget.ride.availableSeats - 1, widget.user.userId);
+                      widget.ride.availableSeats - 1, widget.user.fullName);
 
                   Navigator.pop(context);
                 }),
