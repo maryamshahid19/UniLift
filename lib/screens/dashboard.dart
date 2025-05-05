@@ -4,6 +4,7 @@ import 'package:unilift/constants/screensize_constants.dart';
 import 'package:unilift/models/ride.dart';
 import 'package:unilift/models/user.dart';
 import 'package:unilift/repositories/rides_repository.dart';
+import 'package:unilift/widgets/listTiles/customRideHistoryTile.dart';
 import 'package:unilift/widgets/listTiles/customRideTile.dart';
 import 'package:unilift/widgets/text/customText.dart';
 

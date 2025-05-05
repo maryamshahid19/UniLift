@@ -39,10 +39,10 @@ class MyApp extends StatelessWidget {
             //return const MainLayout();
             // return const CarDetailScreen();
             //   if (state is AuthAuthenticated) {
-            return const SignUpScreen(); // Navigate to home if authenticated
+            // return const SignUpScreen(); // Navigate to home if authenticated
             //   }
             //else {
-            //   return const SignUpScreen(); // Otherwise, show login screen
+            return const LogInScreen(); // Otherwise, show login screen
             // }
           },
         ),

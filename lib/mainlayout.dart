@@ -3,7 +3,7 @@ import 'package:unilift/models/user.dart';
 import 'package:unilift/repositories/auth_repository.dart';
 import 'package:unilift/screens/createCarpoolScreens/carpool_details_screen.dart';
 import 'package:unilift/screens/dashboard.dart';
-import 'package:unilift/screens/notifications_screen.dart';
+import 'package:unilift/screens/history_screen.dart';
 import 'package:unilift/screens/profile_screen.dart';
 import 'package:unilift/widgets/navBar/customNavBar.dart';
 
@@ -31,7 +31,7 @@ class _MainLayoutState extends State<MainLayout> {
     setState(() {
       _screens = [
         Dashboard(user: user),
-        RidesHistoryScreen(),
+        CarpoolHistoryScreen(user: user),
         CarpoolDetailScreen(user: user),
         ProfileScreen(),
       ];

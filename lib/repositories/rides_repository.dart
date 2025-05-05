@@ -91,6 +91,32 @@ class RidesRepository {
     return rideData;
   }
 
+  Future<List<RideModel>> fetchBookedRides(String userName) async {
+    final snapshot = await _db
+        .collection('rides')
+        //.orderBy('timestamp', descending: true)
+        .get();
+    final rideData = snapshot.docs
+        .map((doc) => RideModel.fromSnapshot(doc))
+        .where((ride) => ride.bookedBy.contains(userName))
+        .toList();
+
+    return rideData;
+  }
+
+  Future<List<RideModel>> fetchCreatedRides(String userName) async {
+    final snapshot = await _db
+        .collection('rides')
+        //.orderBy('timestamp', descending: true)
+        .get();
+    final rideData = snapshot.docs
+        .map((doc) => RideModel.fromSnapshot(doc))
+        .where((ride) => ride.owner == userName)
+        .toList();
+
+    return rideData;
+  }
+
   Future<void> createCarpool(
     String from,
     String to,
@@ -100,7 +126,7 @@ class RidesRepository {
     String carType,
     String carColor,
     String carPlate,
-    String ownerId,
+    String owner,
   ) async {
     await _db.collection('rides').add({
       'from': from,
@@ -111,12 +137,12 @@ class RidesRepository {
       'carType': carType,
       'carColor': carColor,
       'carPlate': carPlate,
-      'owner': ownerId,
+      'owner': owner,
     });
   }
 
   Future<void> bookCarpoolRide(
-      String documentId, int availableSeats, String userId) async {
+      String documentId, int availableSeats, String userName) async {
     final docRef = _db.collection('rides').doc(documentId);
     final snapshot = await docRef.get();
 
@@ -128,7 +154,7 @@ class RidesRepository {
         bookedList = List.from(data['bookedBy']);
       }
 
-      bookedList.add(userId);
+      bookedList.add(userName);
 
       await docRef.update({
         'availableSeats': availableSeats,
