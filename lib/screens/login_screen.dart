@@ -5,6 +5,7 @@ import 'package:unilift/bloc/auth_event.dart';
 import 'package:unilift/bloc/auth_state.dart';
 import 'package:unilift/constants/color_constants.dart';
 import 'package:unilift/constants/screensize_constants.dart';
+import 'package:unilift/mainlayout.dart';
 import 'package:unilift/screens/dashboard.dart';
 import 'package:unilift/screens/signup_screen.dart';
 import 'package:unilift/widgets/button/customButton.dart';
@@ -30,8 +31,11 @@ class _LogInScreenState extends State<LogInScreen> {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthAuthenticated) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("LogIn successful!")),
+            );
             Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => Dashboard()));
+                context, MaterialPageRoute(builder: (context) => MainLayout()));
           } else if (state is AuthError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.message)),

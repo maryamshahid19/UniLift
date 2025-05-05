@@ -15,7 +15,7 @@ class CustomButton extends StatelessWidget {
   final FontWeight? fontWeight;
   final Color? borderColor;
   final double borderWidth;
-  final String? icon;
+  final IconData? icon;
 
   const CustomButton({
     super.key,
@@ -55,7 +55,7 @@ class CustomButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (icon != null) ...[
-            Image.asset(icon!, height: 24, width: 24),
+            Icon(icon!, size: 20),
             SizedBox(width: 5),
           ],
           Text(

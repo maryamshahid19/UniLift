@@ -10,6 +10,7 @@ class RideModel {
   final String carColor;
   final String carPlate;
   final String owner;
+  final String documentId;
   final List bookedBy;
 
   RideModel({
@@ -22,6 +23,7 @@ class RideModel {
     required this.carColor,
     required this.carPlate,
     required this.owner,
+    required this.documentId,
     required this.bookedBy,
   });
 
@@ -38,6 +40,7 @@ class RideModel {
       carColor: data['carColor'] ?? '',
       carPlate: data['carPlate'] ?? '',
       owner: data['owner'] ?? '',
+      documentId: document.id,
       bookedBy: data['bookedBy'] ?? [],
     );
   }

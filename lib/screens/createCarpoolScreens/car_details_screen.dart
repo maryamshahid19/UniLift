@@ -217,7 +217,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   carName!,
                                   carColor!,
                                   plate,
-                                  widget.user.fullName);
+                                  widget.user.userId);
                             }
                           },
                         ),

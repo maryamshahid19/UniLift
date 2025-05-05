@@ -30,8 +30,8 @@ class _MainLayoutState extends State<MainLayout> {
     user = await AuthRepository().getCurrentUser();
     setState(() {
       _screens = [
-        Dashboard(),
-        NotificationScreen(),
+        Dashboard(user: user),
+        RidesHistoryScreen(),
         CarpoolDetailScreen(user: user),
         ProfileScreen(),
       ];

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:unilift/models/ride.dart';
 
 class RidesRepository {
   final _db = FirebaseFirestore.instance;
@@ -82,6 +83,13 @@ class RidesRepository {
   //     'assigned_to': volId,
   //   });
   // }
+  Future<List<RideModel>> fetchAllRides() async {
+    final snapshot = await _db.collection('rides').get();
+    final rideData =
+        snapshot.docs.map((doc) => RideModel.fromSnapshot(doc)).toList();
+
+    return rideData;
+  }
 
   Future<void> createCarpool(
     String from,
@@ -92,7 +100,7 @@ class RidesRepository {
     String carType,
     String carColor,
     String carPlate,
-    String owner,
+    String ownerId,
   ) async {
     await _db.collection('rides').add({
       'from': from,
@@ -103,7 +111,29 @@ class RidesRepository {
       'carType': carType,
       'carColor': carColor,
       'carPlate': carPlate,
-      'owner': owner,
+      'owner': ownerId,
     });
+  }
+
+  Future<void> bookCarpoolRide(
+      String documentId, int availableSeats, String userId) async {
+    final docRef = _db.collection('rides').doc(documentId);
+    final snapshot = await docRef.get();
+
+    if (snapshot.exists) {
+      List<dynamic> bookedList = [];
+      final data = snapshot.data();
+
+      if (data != null && data['bookedBy'] != null) {
+        bookedList = List.from(data['bookedBy']);
+      }
+
+      bookedList.add(userId);
+
+      await docRef.update({
+        'availableSeats': availableSeats,
+        'bookedBy': bookedList,
+      });
+    }
   }
 }
