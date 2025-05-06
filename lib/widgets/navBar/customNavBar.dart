@@ -15,10 +15,10 @@ class CustomBottomNavBar extends StatelessWidget {
     Icons.home,
     Icons.access_time,
     Icons.add,
-    Icons.person_outline,
+   
   ];
 
-  final List<String> _labels = const ["Rides", "History", "Add", "Profile"];
+  final List<String> _labels = const ["Rides", "History", "Add"];
 
   @override
   Widget build(BuildContext context) {

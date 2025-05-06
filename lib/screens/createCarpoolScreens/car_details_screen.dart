@@ -63,7 +63,6 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                         ),
-                        Icon(Icons.menu, color: ClrUtils.primary),
                       ],
                     ),
                     const SizedBox(height: 30),
@@ -225,7 +224,6 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   ),
                                 ),
                               );
-                              
                             }
                           },
                         ),

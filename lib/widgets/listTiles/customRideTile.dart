@@ -83,8 +83,6 @@ class CustomRideListTile extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 5),
-
-            // Time
             CustomText(
               text: DateFormat('dd MMMM h:mm a').format(ride.dateTime),
               fontSize: 14,

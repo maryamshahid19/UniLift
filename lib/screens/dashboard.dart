@@ -3,7 +3,9 @@ import 'package:unilift/constants/color_constants.dart';
 import 'package:unilift/constants/screensize_constants.dart';
 import 'package:unilift/models/ride.dart';
 import 'package:unilift/models/user.dart';
+import 'package:unilift/repositories/auth_repository.dart';
 import 'package:unilift/repositories/rides_repository.dart';
+import 'package:unilift/screens/login_screen.dart';
 import 'package:unilift/widgets/listTiles/customRideHistoryTile.dart';
 import 'package:unilift/widgets/listTiles/customRideTile.dart';
 import 'package:unilift/widgets/text/customText.dart';
@@ -90,19 +92,17 @@ class _DashboardState extends State<Dashboard> {
                                       child: Text('No carpool rides found.'));
                                 }
 
-                                return Expanded(
-                                  child: ListView.builder(
-                                    itemCount: rides.length,
-                                    itemBuilder: (context, index) {
-                                      final ride = rides[index];
+                                return ListView.builder(
+                                  itemCount: rides.length,
+                                  itemBuilder: (context, index) {
+                                    final ride = rides[index];
 
-                                      return CustomRideListTile(
-                                        ride: ride,
-                                        user: widget.user,
-                                        onPressed: () {},
-                                      );
-                                    },
-                                  ),
+                                    return CustomRideListTile(
+                                      ride: ride,
+                                      user: widget.user,
+                                      onPressed: () {},
+                                    );
+                                  },
                                 );
                               }),
                         ),
@@ -124,18 +124,39 @@ class _DashboardState extends State<Dashboard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomText(
-                      text: "Hello,",
-                      color: ClrUtils.primary,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    CustomText(
-                      text: widget.user.fullName,
-                      color: ClrUtils.primary,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
-                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomText(
+                              text: "Hello,",
+                              color: ClrUtils.primary,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            CustomText(
+                              text: widget.user.fullName,
+                              color: ClrUtils.primary,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ],
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            AuthRepository().logOut();
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LogInScreen()));
+                          },
+                          icon: Icon(Icons.logout),
+                          color: ClrUtils.primary,
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),

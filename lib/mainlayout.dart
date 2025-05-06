@@ -33,14 +33,7 @@ class _MainLayoutState extends State<MainLayout> {
         Dashboard(user: user),
         CarpoolHistoryScreen(user: user),
         CarpoolDetailScreen(user: user),
-        ProfileScreen(),
       ];
-    });
-  }
-
-  void goToProfile() {
-    setState(() {
-      _selectedIndex = 3;
     });
   }
 
@@ -52,6 +45,11 @@ class _MainLayoutState extends State<MainLayout> {
 
   @override
   Widget build(BuildContext context) {
+    if (_screens.isEmpty) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
     return Scaffold(
       body: _screens[_selectedIndex],
       bottomNavigationBar: CustomBottomNavBar(

@@ -216,6 +216,7 @@ class _CarpoolHistoryScreenState extends State<CarpoolHistoryScreen>
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: const CustomText(
             text: "Carpool History",
             fontWeight: FontWeight.bold,
@@ -225,9 +226,8 @@ class _CarpoolHistoryScreenState extends State<CarpoolHistoryScreen>
           bottom: TabBar(
             controller: _tabController,
             labelColor: ClrUtils.secondary,
-            indicatorColor: ClrUtils.secondary, // selected tab text color
-            unselectedLabelColor:
-                ClrUtils.textSecondary, // optional: unselected tab text color
+            indicatorColor: ClrUtils.secondary,
+            unselectedLabelColor: ClrUtils.textSecondary,
             tabs: const [
               Tab(text: "Booked Rides"),
               Tab(text: "Created Rides"),
